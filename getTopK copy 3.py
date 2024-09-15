@@ -1,12 +1,9 @@
 import os
 from dotenv import load_dotenv
-from flask_cors import CORS  # Import CORS
-
 from flask import Flask, request, jsonify
 from pinecone import Pinecone
 
 app = Flask(__name__)
-CORS(app)
 
 load_dotenv(dotenv_path='secrets.env')
 api_key = os.environ['PINECONE_API_KEY']
@@ -16,20 +13,19 @@ index_name = "cos-15"
 pinecone_index = pinecone.Index(index_name)
 
 
-# @app.route('/get_similar_songs', methods=['POST'])
-@app.route('/get_similar_songs', methods=['GET'])
+@app.route('/get_similar_songs', methods=['POST'])
 def get_similar_songs():
-    print("wts")
-    song_name = request.args.get('song_name', '')
+    data = request.json
+    songName = data.get('songName', '')
 
-    if not song_name:
+    if not songName:
         return jsonify({"error": "No song name provided"}), 400
 
     song_data = pinecone_index.query(
         namespace="Tracks",
         top_k=1,
         filter={
-            "track_name": {"$eq": song_name}
+            "track_name": {"$eq": songName}
         },
         include_metadata=True,
         include_values=True,

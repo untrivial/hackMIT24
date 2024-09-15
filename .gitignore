@@ -2,3 +2,5 @@ venv/
 secrets.env
 **/__pycache__/
 dataset.csv
+flask.env
+getTopKAll.py
