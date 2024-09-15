@@ -62,20 +62,24 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <h1>Song Recommendation Engine</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={songName}
-            onChange={(e) => setSongName(e.target.value)}
-            placeholder="Enter a song name"
-            required
-          />
-          <button type="submit">Generate Recommendations</button>
-        </form>
+        <h1>🎵Next Song? 🎶</h1>
+        <div className="search-container">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={songName}
+              onChange={(e) => setSongName(e.target.value)}
+              placeholder="Enter a song name..."
+              required
+            />
+            <button type="submit">
+              <span role="img" aria-label="search">🔍</span> Discover
+            </button>
+          </form>
+        </div>
         {knowledgeGraph && (
           <div className="knowledge-graph">
-            <h2>Recommendations for "{songName}"</h2>
+            <h2>✨ Musical Journey for "{songName}" ✨</h2>
             <KnowledgeGraph data={knowledgeGraph} />
           </div>
         )}
